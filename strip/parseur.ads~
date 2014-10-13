@@ -1,9 +1,0 @@
-
-package Parseur is
-   
-   procedure Lecture_En_Tete 
-     (FichierEntree : String, Nombre_Objets : Natural, Largeur_Ruban : Natural) is
-      
-      end Lecture_En_Tete;
-   
-end Parseur;
