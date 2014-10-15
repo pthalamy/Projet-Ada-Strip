@@ -2,6 +2,9 @@
 with Ada.Text_IO, Ada.Integer_Text_IO;
 use Ada.Text_IO, Ada.Integer_Text_IO;
 
+with Objet_Packing;
+use Objet_Packing;
+
 package body Parseur is
 
    procedure Lecture_En_Tete (Nom_Fichier : in String;
@@ -20,11 +23,14 @@ package body Parseur is
       -- Lecture de la largeur du ruban
       Get (Fichier, Largeur_Ruban);
 
+      -- Fermeture du fichier
+      Close (Fichier);
    end Lecture_En_Tete;
 
    procedure Lecture (Nom_Fichier : in String; Objets : out Tableau_Objets) is
       Fichier : File_Type;
       Index_Objet, Largeur_Objet, Hauteur_Objet : Natural;
+      Objet_Courant : Objet;
    begin
       -- Ouverture du fichier
       Open (File => Fichier,
@@ -40,12 +46,16 @@ package body Parseur is
       while not End_Of_File (Fichier) loop
          Get (Fichier, Index_Objet);
          Get (Fichier, Largeur_Objet);
-         Get (Hauteur_Objet);
+         Get (Fichier, Hauteur_Objet);
 
-         Tableau_Objets(Index_Objet + 1).Largeur = Largeur_Objet;
-         Tableau_Objets(Index_Objet + 1).Hauteur = Hauteur_Objet;
+         Set_Largeur (Objets(Index_Objet + 1), Largeur_Objet);
+         Set_Hauteur (Objets(Index_Objet + 1), Hauteur_Objet);
       End loop;
 
+      Put (Objets, Index_Objet + 1);
+
+      -- Fermeture du fichier
+      Close (Fichier);
    end Lecture;
 
 end Parseur;
