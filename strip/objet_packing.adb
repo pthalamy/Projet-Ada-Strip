@@ -28,7 +28,13 @@ package body Objet_Packing is
    begin
       return This.Hauteur;
    end Get_Hauteur;
-
+   
+   procedure Put (P : in Point) is
+   begin
+      Put (P.X);
+      Put (P.Y);
+   end Put;
+   
    procedure Put (Obj : in Objet) is
    begin
       Put (Get_Largeur (Obj));
@@ -45,5 +51,5 @@ package body Objet_Packing is
          Put (Tab(I));
       end loop;
    end Put;
-
+   
 end Objet_Packing;

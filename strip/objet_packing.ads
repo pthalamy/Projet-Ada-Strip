@@ -1,5 +1,10 @@
 
 package Objet_Packing is
+   
+   type Point is record
+      X : Natural;
+      Y : Natural;
+   end record;
 
    type Objet is private;
    type Tableau_Objets is array (Integer range <>) of Objet;
@@ -17,12 +22,13 @@ package Objet_Packing is
    -- Affiche le contenu des objets d'un tableau
    procedure Put (Tab : in Tableau_Objets;
                   Taille : in Natural);
-
+   
 private
 
    type Objet is record
       Largeur : Natural;
       Hauteur : Natural;
+      Origine : Point;
    end record;
 
 end Objet_Packing;
