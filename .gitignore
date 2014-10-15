@@ -1,3 +1,7 @@
 
 # Temporary files
 **/*~
+**/*.ali
+**/*.o
+**/*.svg
+strip/strip
