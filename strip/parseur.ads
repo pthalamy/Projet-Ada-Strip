@@ -2,9 +2,9 @@ with Objet_Packing;
 use Objet_Packing;
 
 package Parseur is
-
+   
    Erreur_Lecture_Benchmark : exception;
-
+   
    -- requiert : Nom_Fichier nom de fichier existant et valide.
    -- garantit : Nombre_Objets et Largeur_Ruban fixes a leur valeur
    -- correspondante dans le fichier lu.
