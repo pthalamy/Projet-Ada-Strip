@@ -33,7 +33,9 @@ begin
       Parseur.Lecture(Argument(1), Objets);
 
       --           Packing.Next_Fit_Decreasing_Height(Objets, Largeur_Ruban, Hauteur_Ruban);
-      --           Svg.Sauvegarde(Argument(2), Objets, Largeur_Ruban, Hauteur_Ruban);
+      Largeur_Ruban := 200; -- TEST
+      Hauteur_Ruban := 200;
+      Svg.Sauvegarde(Argument(2), Objets, Largeur_Ruban, Hauteur_Ruban);
    end;
 
 exception
