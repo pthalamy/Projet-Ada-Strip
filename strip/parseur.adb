@@ -6,7 +6,7 @@ with Objet_Packing;
 use Objet_Packing;
 
 package body Parseur is
-   
+
    procedure Lecture_En_Tete (Nom_Fichier : in String;
                               Nombre_Objets : out Natural;
                               Largeur_Ruban : out Natural) is
@@ -25,10 +25,10 @@ package body Parseur is
 
       -- Fermeture du fichier
       Close (Fichier);
-      
-   exception 
-      when Name_Error | Data_Error | Layout_Error =>
-	 raise Erreur_Lecture_Benchmark;   
+
+   exception
+      when Name_Error | Data_Error | Layout_Error | Constraint_Error =>
+         raise Erreur_Lecture_Benchmark;
    end Lecture_En_Tete;
 
    procedure Lecture (Nom_Fichier : in String; Objets : out Tableau_Objets) is
@@ -54,16 +54,16 @@ package body Parseur is
          Set_Largeur (Objets(Index_Objet + 1), Largeur_Objet);
          Set_Hauteur (Objets(Index_Objet + 1), Hauteur_Objet);
       End loop;
-      
+
       -- Affichage du contenu du tableau
       --  Put (Objets, Index_Objet + 1);
 
       -- Fermeture du fichier
       Close (Fichier);
-      
-   exception 
-      when Name_Error | Data_Error | Layout_Error =>
-	 raise Erreur_Lecture_Benchmark;
+
+   exception
+      when Name_Error | Data_Error | Layout_Error | Constraint_Error =>
+         raise Erreur_Lecture_Benchmark;
    end Lecture;
 
 end Parseur;
