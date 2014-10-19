@@ -50,13 +50,15 @@ package body Parseur is
          Get (Fichier, Index_Objet);
          Get (Fichier, Largeur_Objet);
          Get (Fichier, Hauteur_Objet);
-
+	 
+	 Set_Index (Objets(Index_Objet + 1), Index_Objet);
          Set_Largeur (Objets(Index_Objet + 1), Largeur_Objet);
          Set_Hauteur (Objets(Index_Objet + 1), Hauteur_Objet);
+	 
+	 -- TEMP
+	 Set_Position (Objets(Index_Objet + 1), (0, 0));
+	 
       End loop;
-
-      -- Affichage du contenu du tableau
-      --  Put (Objets, Index_Objet + 1);
 
       -- Fermeture du fichier
       Close (Fichier);
