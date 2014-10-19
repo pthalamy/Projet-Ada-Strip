@@ -31,10 +31,12 @@ begin
       Objets : Tableau_Objets(1..Nombre_Objets);
    begin
       Parseur.Lecture(Argument(1), Objets);
-
-      --           Packing.Next_Fit_Decreasing_Height(Objets, Largeur_Ruban, Hauteur_Ruban);
-      Largeur_Ruban := 200; -- TEST
-      Hauteur_Ruban := 200;
+      
+            
+      --  Put_Line (Objets); New_Line;
+      Packing.Next_Fit_Decreasing_Height(Objets, Largeur_Ruban, Hauteur_Ruban);      
+      --  Put_Line (Objets);
+      
       Svg.Sauvegarde(Argument(2), Objets, Largeur_Ruban, Hauteur_Ruban);
    end;
 
