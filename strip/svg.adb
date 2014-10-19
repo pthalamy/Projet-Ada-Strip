@@ -6,7 +6,8 @@ use Objet_Packing;
 
 package body Svg is
 
-   type Couleur is (Violet, Indigo, Bleu, Vert, Jaune, Orange, Rouge, Noir, Blanc);
+   type Couleur is (Violet, Indigo, Bleu, Cyan, Vert, Jaune, Orange, 
+		    Rouge, Marron, Noir, Blanc);
 
    Display_Width, Display_Height : Natural;
    Fichier_Svg : File_Type;
@@ -17,11 +18,14 @@ package body Svg is
          when Violet  => return "rgb(255,0,255)";
          when Indigo  => return "rgb(111,0,255)";
          when Bleu  => return "rgb(0,0,255)";
+	 when Cyan  => return "rgb(0,255,255)";
          when Vert  => return "rgb(0,255,0)";
-         When Jaune => return "rgb(0,255,255)";
+         When Jaune => return "rgb(255,255,0)";
          When Orange => return "rgb(255,165,0)";
          when Rouge => return "rgb(255,0,0)";
-         when Noir  => return "rgb(0,0,0)";
+         when Marron  => return "rgb(128,0,0)";
+	    
+	 when Noir => return "rgb(0,0,0)";
          when Blanc => return "rgb(255,255,255)";
       end case;
    end Code_Couleur;
@@ -89,7 +93,7 @@ package body Svg is
 			Get_Largeur (Objets(I)),
 			Get_Hauteur (Objets(I)),
 			C);
-	 Index_Couleur := (Index_Couleur + 1) mod (Couleur'Pos(Couleur'Last)+1);
+	 Index_Couleur := (Index_Couleur + 1) mod (Couleur'Pos(Couleur'Last)-1);
 	 C := Couleur'Val (Index_Couleur);
       end loop;
 
