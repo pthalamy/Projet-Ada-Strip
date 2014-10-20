@@ -82,7 +82,7 @@ package body Svg is
       Index_Couleur : Natural := 0;
    begin
       -- Ouverture du fichier
-      Open (File => Fichier_Svg,
+      Create (File => Fichier_Svg,
             Mode => Out_File,
             Name => Nom_Fichier_Svg);
 
