@@ -24,19 +24,11 @@ begin
 
    Parseur.Lecture_En_Tete(Argument(1), Nombre_Objets, Largeur_Ruban);
 
-   Put_Line ("Nombre d'objets : " & Integer'Image(Nombre_Objets));
-   Put_Line ("Largeur du ruban : " & Integer'Image(Largeur_Ruban));
-
    declare
       Objets : Tableau_Objets(1..Nombre_Objets);
    begin
       Parseur.Lecture(Argument(1), Objets);
-      
-            
-      --  Put_Line (Objets); New_Line;
-      Packing.Next_Fit_Decreasing_Height(Objets, Largeur_Ruban, Hauteur_Ruban);      
-      --  Put_Line (Objets);
-      
+      Packing.Next_Fit_Decreasing_Height(Objets, Largeur_Ruban, Hauteur_Ruban);
       Svg.Sauvegarde(Argument(2), Objets, Largeur_Ruban, Hauteur_Ruban);
    end;
 

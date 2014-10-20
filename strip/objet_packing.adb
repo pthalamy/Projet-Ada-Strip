@@ -5,12 +5,12 @@ package body Objet_Packing is
    
    -- SETTERS
    
-   procedure Set_Index (This : in out Objet;
-			Index : in Natural)
+   procedure Set_Indice (This : in out Objet;
+			Indice : in Natural)
    is
    begin
-      This.Index := Index;
-   end Set_Index;
+      This.Indice := Indice;
+   end Set_Indice;
    
    procedure Set_Largeur (This : in out Objet;
                           Largeur : in Natural)
@@ -35,10 +35,10 @@ package body Objet_Packing is
    
    -- GETTERS
    
-   function Get_Index (This : Objet) return Natural is
+   function Get_Indice (This : Objet) return Natural is
    begin
-      return This.Index;
-   end Get_Index;
+      return This.Indice;
+   end Get_Indice;
    
    function Get_Largeur (This : Objet) return Natural is
    begin
@@ -55,7 +55,7 @@ package body Objet_Packing is
       return This.Position;
    end Get_Position;
    
-   -- PUT
+   -- PUT (Pour Debug)
    
    procedure Put (P : in Point) is
    begin
@@ -65,7 +65,7 @@ package body Objet_Packing is
    
    procedure Put_Line (Obj : in Objet) is
    begin
-      Put (Get_Index (Obj));
+      Put (Get_Indice (Obj));
       Put (Get_Largeur (Obj));
       Put (Get_Hauteur (Obj));
       Put (Get_Position (Obj));

@@ -9,8 +9,8 @@ package Objet_Packing is
    type Objet is private;
    type Tableau_Objets is array (Integer range <>) of Objet;
    
-   procedure Set_Index (This : in out Objet;
-			Index : in Natural);
+   procedure Set_Indice (This : in out Objet;
+			 Indice : in Natural);
    
    procedure Set_Largeur (This : in out Objet;
                           Largeur : in Natural);
@@ -21,7 +21,7 @@ package Objet_Packing is
    procedure Set_Position (This : in out Objet;
 			  Position : in Point);
    
-   function Get_Index (This : Objet) return Natural;
+   function Get_Indice (This : Objet) return Natural;
    
    function Get_Largeur (This : Objet) return Natural;
 
@@ -29,16 +29,15 @@ package Objet_Packing is
    
    function Get_Position (This : Objet) return Point;
 
-   -- Affiche le contenu des objets d'un tableau
    procedure Put_Line (Tab : in Tableau_Objets);
    
 private
 
    type Objet is record
-      Index : Natural;
+      Indice : Natural; -- Utile pour Debug seul
       Largeur : Natural;
       Hauteur : Natural;
-      Position : Point; -- Top-Left Corner
+      Position : Point; -- Coin Superieur-droit du rectangle
    end record;
 
 end Objet_Packing;

@@ -12,18 +12,13 @@ package body Parseur is
                               Largeur_Ruban : out Natural) is
       Fichier : File_Type;
    begin
-      -- Ouverture du fichier
       Open (File => Fichier,
             Mode => In_File,
             Name => Nom_Fichier);
 
-      -- Lecture du nombre d'objets
       Get (Fichier, Nombre_Objets);
-
-      -- Lecture de la largeur du ruban
       Get (Fichier, Largeur_Ruban);
 
-      -- Fermeture du fichier
       Close (Fichier);
 
    exception
@@ -33,34 +28,30 @@ package body Parseur is
 
    procedure Lecture (Nom_Fichier : in String; Objets : out Tableau_Objets) is
       Fichier : File_Type;
-      Index_Objet, Largeur_Objet, Hauteur_Objet : Natural;
+      Indice_Objet, Largeur_Objet, Hauteur_Objet : Natural;
+      Indice_Courant : Natural := Objets'First;
    begin
-      -- Ouverture du fichier
       Open (File => Fichier,
             Mode => In_File,
             Name => Nom_Fichier);
 
-      -- Saut des deux premieres lignes d'entete
       Skip_Line(File => Fichier, Spacing => 2);
 
       -- Pour tous les objets du fichier, en extraire les informations et les stocker
       -- dans le tableau a l'index donne par leur id + 1.
       -- Format : Index Largeur Hauteur
       while not End_Of_File (Fichier) loop
-         Get (Fichier, Index_Objet);
+         Get (Fichier, Indice_Objet);
          Get (Fichier, Largeur_Objet);
          Get (Fichier, Hauteur_Objet);
 	 
-	 Set_Index (Objets(Index_Objet + 1), Index_Objet);
-         Set_Largeur (Objets(Index_Objet + 1), Largeur_Objet);
-         Set_Hauteur (Objets(Index_Objet + 1), Hauteur_Objet);
+	 Set_Indice (Objets(Indice_Courant), Indice_Objet);
+         Set_Largeur (Objets(Indice_Courant), Largeur_Objet);
+         Set_Hauteur (Objets(Indice_Courant), Hauteur_Objet);
 	 
-	 -- TEMP
-	 Set_Position (Objets(Index_Objet + 1), (0, 0));
-	 
+	 Indice_Courant := Indice_Courant + 1;
       End loop;
 
-      -- Fermeture du fichier
       Close (Fichier);
 
    exception

@@ -9,12 +9,10 @@ package body Svg is
    type Couleur is (Violet, Indigo, Bleu, Cyan, Vert, Jaune, Orange, 
 		    Rouge, Marron, Noir, Blanc);
 
-   Display_Width, Display_Height : Natural;
-   Fichier_Svg : File_Type;
-
    function Code_Couleur (C : Couleur) return String is
    begin
       case C is
+	 -- Couleurs utilisees pour les objets
          when Violet  => return "rgb(255,0,255)";
          when Indigo  => return "rgb(111,0,255)";
          when Bleu  => return "rgb(0,0,255)";
@@ -24,42 +22,36 @@ package body Svg is
          When Orange => return "rgb(255,165,0)";
          when Rouge => return "rgb(255,0,0)";
          when Marron  => return "rgb(128,0,0)";
-	    
+	 -- autres couleurs
 	 when Noir => return "rgb(0,0,0)";
          when Blanc => return "rgb(255,255,255)";
       end case;
    end Code_Couleur;
 
-   -- ! A appeler avant toute ecriture dans le fichier svg !
-   -- garantit : Insere le header svg dans Fichier_Svg.
-   procedure Svg_Header (Largeur, Hauteur : Natural) is
+   procedure Svg_Header (Fichier_Svg : in File_Type;
+			 Largeur, Hauteur : in Natural) is
    begin
       Put (Fichier_Svg, "<svg width=""");
       Put (Fichier_Svg, Largeur);
       Put (Fichier_Svg, """ height=""");
       Put (Fichier_Svg, Hauteur);
       Put_Line (Fichier_Svg, """>");
-
-      Display_Width := Largeur;
-      Display_Height := Hauteur;
    end Svg_Header;
 
-
-   -- ! A appeler pour clore le fichier svg !
-   -- garantit : Insere le footer svg dans Fichier_Svg.
-   procedure Svg_Footer is
+   procedure Svg_Footer (Fichier_Svg : in File_Type) is
    begin
       Put_Line (Fichier_Svg, "</svg>");
    end Svg_Footer;
 
    -- Dessine un rectangle de la forme:
-   --              A/O ---- B
+   --               O ---- P1
    --               |      |
-   --               D ---- C
+   --               P3 ---- P2
    -- et de couleur C.
-   procedure Svg_Rectangle (O : Point;
-                            Largeur, Hauteur : Natural;
-                            C : Couleur)
+   procedure Svg_Rectangle (Fichier_Svg : in File_Type;
+			    O : in Point;
+                            Largeur, Hauteur : in Natural;
+                            C : in Couleur)
    is
    begin
       Put (Fichier_Svg, "<rect ");
@@ -73,31 +65,34 @@ package body Svg is
       Put_Line (Fichier_Svg, """/>");
    end Svg_Rectangle;
 
-   procedure Sauvegarde (Nom_Fichier_Svg : String;
-                         Objets : Tableau_Objets;
-                         Largeur_Ruban : Natural;
-                         Hauteur_Ruban : Natural) 
+   procedure Sauvegarde (Nom_Fichier_Svg : in String;
+                         Objets : in Tableau_Objets;
+                         Largeur_Ruban : in Natural;
+                         Hauteur_Ruban : in Natural) 
    is
+      Fichier_Svg : File_Type;
       C : Couleur := Couleur'First;
-      Index_Couleur : Natural := 0;
+      Indice_Couleur : Natural := 0;
    begin
-      -- Ouverture du fichier
       Create (File => Fichier_Svg,
-            Mode => Out_File,
-            Name => Nom_Fichier_Svg);
+	      Mode => Out_File,
+	      Name => Nom_Fichier_Svg);
 
-      Svg_Header (Largeur_Ruban, Hauteur_Ruban);
+      Svg_Header (Fichier_Svg, Largeur_Ruban, Hauteur_Ruban);
 
       for I in Objets'Range loop
-	 Svg_Rectangle (Get_Position (Objets(I)),
+	 Svg_Rectangle (Fichier_Svg,
+			Get_Position (Objets(I)),
 			Get_Largeur (Objets(I)),
 			Get_Hauteur (Objets(I)),
 			C);
-	 Index_Couleur := (Index_Couleur + 1) mod (Couleur'Pos(Couleur'Last)-1);
-	 C := Couleur'Val (Index_Couleur);
+	 
+	 Indice_Couleur := (Indice_Couleur + 1) 
+	   mod (Couleur'Pos(Couleur'Last)-1); -- Evite Noir & Blanc
+	 C := Couleur'Val (Indice_Couleur);
       end loop;
 
-      Svg_Footer;
+      Svg_Footer (Fichier_Svg);
    end Sauvegarde;
 
 end Svg;
