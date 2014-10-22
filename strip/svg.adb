@@ -44,8 +44,8 @@ package body Svg is
    end Svg_Footer;
 
    -- Dessine un rectangle de la forme:
-   --               O ---- P1
-   --               |      |
+   --               O ----- P1
+   --               |       |
    --               P3 ---- P2
    -- et de couleur C.
    procedure Svg_Rectangle (Fichier_Svg : in File_Type;
@@ -87,8 +87,10 @@ package body Svg is
 			Get_Hauteur (Objets(I)),
 			C);
 	 
+	 -- Donne une couleur a chaque rectangle parmi celle existante s
+	 -- de facon cyclique. Noir et Blanc non inclus.
 	 Indice_Couleur := (Indice_Couleur + 1) 
-	   mod (Couleur'Pos(Couleur'Last)-1); -- Evite Noir & Blanc
+	   mod (Couleur'Pos(Couleur'Last)-1);
 	 C := Couleur'Val (Indice_Couleur);
       end loop;
 

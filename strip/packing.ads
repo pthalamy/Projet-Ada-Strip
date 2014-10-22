@@ -3,6 +3,9 @@ use Objet_Packing;
 
 package Packing is
    
+   -- Requiert : Objets un Tableau_Objets non vide
+   -- Garantit : Objets trier par ordre decroissant de la hauteur des ses objets
+   --            Chaque Objet.Position assigne a une valeur de type point
    procedure Next_Fit_Decreasing_Height (Objets : in out Tableau_Objets;
 					 Largeur_Ruban : in Natural;
 					 Hauteur_Ruban : out Natural);
