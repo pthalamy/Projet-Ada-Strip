@@ -4,3 +4,8 @@
 **/*.ali
 **/*.o
 strip/strip
+*.aux
+
+*.log
+
+*.pdf
