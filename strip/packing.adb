@@ -13,16 +13,16 @@ package body Packing is
       
       L_Cour, H_Cour, H_Max : Natural := 0;
       
-      -- Fonction necessaire a l'instantiation de Generic_Array_Sort 
-      -- Compare deux elements du tableau pour son tri croissant
+      -- Fonction nécessaire à l'instantiation de Generic_Array_Sort 
+      -- Compare deux éléments du tableau pour son tri croissant
       function "<" (L, R : Objet) return Boolean is
       begin
 	 -- Normalement Get_Hauteur (L) < Get_Hauteur (R)
-	 -- Mais le signe a ete inverse afin d'obtenir un tri decroissant
+	 -- Mais le signe à été inversé afin d'obtenir un tri decroissant
 	 return Get_Hauteur (L) > Get_Hauteur (R);
       end "<";
       
-      -- Instanciation du package generic sort de la bibliotheque standard Ada
+      -- Instanciation du package generic sort de la bibliothèque standard Ada
       procedure TriParHauteurDecroissante is 
 	 new Ada.Containers.Generic_Array_Sort (Index_Type => Integer, 
 						Element_Type => Objet, 
@@ -44,7 +44,7 @@ package body Packing is
 	       L_Cour := 0;
 	    end if;
 	    
-	    -- Sinon placer l'objet a la fin du niveau
+	    -- Sinon placer l'objet à la fin du niveau
 	    Set_Position (Objets(I), (L_Cour, H_Cour));
 	    L_Cour := L_Cour + Get_Largeur (Objets(I));
 	 end loop;
@@ -55,7 +55,7 @@ package body Packing is
       end if;
    exception
       when Objet_Unique =>
-	 -- Tri non necessaire
+	 -- Tri non nécessaire
 	 Hauteur_Ruban := Get_Hauteur (Objets(Objets'First));
    end Next_Fit_Decreasing_Height;      
    
