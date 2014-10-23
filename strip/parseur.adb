@@ -38,7 +38,8 @@ package body Parseur is
 	 Put_Line (Standard_Error, 
 		   "Erreur: Le fichier d'entree donne une largeur nulle !");
 	 raise Erreur_Lecture_Benchmark;
-      when Name_Error | Data_Error | Layout_Error | Constraint_Error =>
+      when Name_Error | Data_Error | Layout_Error | End_Error 
+	| Constraint_Error =>
 	 Put_Line (Standard_Error, 
 		   "Erreur: Erreur de lecture de l'entete !");
 	 raise Erreur_Lecture_Benchmark;
@@ -47,8 +48,6 @@ package body Parseur is
    procedure Lecture (Nom_Fichier : in String; Objets : out Tableau_Objets) is
       Fichier : File_Type;
       Indice_Objet, Largeur_Objet, Hauteur_Objet : Natural;
-      Indice_Courant : Natural := Objets'First;
-      Nombre_Objets_Invalide : exception;
    begin
       Open (File => Fichier,
             Mode => In_File,
@@ -58,34 +57,22 @@ package body Parseur is
 
       -- Pour tous les objets du fichier, en extraire les informations 
       -- et les stocker dans le tableau de facon contigue
-      while not End_Of_File (Fichier) loop
+      for I in Objets'Range loop
          Get (Fichier, Indice_Objet);
          Get (Fichier, Largeur_Objet);
          Get (Fichier, Hauteur_Objet);
 	 
-	 Set_Indice (Objets(Indice_Courant), Indice_Objet);
-         Set_Largeur (Objets(Indice_Courant), Largeur_Objet);
-         Set_Hauteur (Objets(Indice_Courant), Hauteur_Objet);
+	 Set_Indice (Objets(I), Indice_Objet);
+         Set_Largeur (Objets(I), Largeur_Objet);
+         Set_Hauteur (Objets(I), Hauteur_Objet);
 	 
-	 Set_Position (Objets(Indice_Courant), (0, 0));
-	 
-	 Indice_Courant := Indice_Courant + 1;
+	 Set_Position (Objets(I), (0, 0));	
       End loop;
 
       Close (Fichier);
-      
-      if Indice_Courant /= Objets'Length then
-	 raise Nombre_Objets_Invalide;
-      end if;
-      
-      Put_Line (Objets);
-
    exception
-      when Nombre_Objets_Invalide =>
-	 Put_Line (Standard_Error, 
-		   "Erreur: Nombre_Objets /= Nombre objets reels !");
-	 raise Erreur_Lecture_Benchmark;
-      when Name_Error | Data_Error | Layout_Error | Constraint_Error =>
+      when End_Error | Name_Error | Data_Error | Layout_Error
+	| Constraint_Error =>
 	 Put_Line (Standard_Error, 
 		   "Erreur: Erreur de lecture !");
 	 raise Erreur_Lecture_Benchmark;

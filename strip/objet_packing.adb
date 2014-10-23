@@ -55,7 +55,7 @@ package body Objet_Packing is
       return This.Position;
    end Get_Position;
    
-   -- PUT (Pour Debug)
+   -- PUT (Pour debug notamment)
    
    procedure Put (P : in Point) is
    begin
