@@ -32,16 +32,16 @@ package body Parseur is
    exception
       when Nombre_Elements_Nul =>
 	 Put_Line (Standard_Error, 
-		   "Erreur: Il n'y a aucun objet declare !");
+		   "Erreur: Il n'y à aucun objet declaré !");
 	 raise Erreur_Lecture_Benchmark;
       when Largeur_Nulle =>
 	 Put_Line (Standard_Error, 
-		   "Erreur: Le fichier d'entree donne une largeur nulle !");
+		   "Erreur: Le fichier d'entrée donne une largeur nulle !");
 	 raise Erreur_Lecture_Benchmark;
       when Name_Error | Data_Error | Layout_Error | End_Error 
 	| Constraint_Error =>
 	 Put_Line (Standard_Error, 
-		   "Erreur: Erreur de lecture de l'entete !");
+		   "Erreur: Erreur de lecture de l'entête !");
 	 raise Erreur_Lecture_Benchmark;
    end Lecture_En_Tete;
 
@@ -56,7 +56,7 @@ package body Parseur is
       Skip_Line(File => Fichier, Spacing => 2);
 
       -- Pour tous les objets du fichier, en extraire les informations 
-      -- et les stocker dans le tableau de facon contigue
+      -- et les stocker dans le tableau de façon contigue
       for I in Objets'Range loop
          Get (Fichier, Indice_Objet);
          Get (Fichier, Largeur_Objet);
