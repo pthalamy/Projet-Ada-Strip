@@ -27,7 +27,7 @@ les attributs suivants:
   \item Hauteur : Hauteur du rectangle
   \item Position : De type \textit{Point}, aussi un type record comprenant une 
     coordonnée X et une Y. 
-    Représente la position du coin superieur gauche du rectangle dans le graph SVG.
+    Représente la position du coin supérieur gauche du rectangle dans le graph SVG.
 \end{itemize}
 
 Comme le type \textit{Objet} est declaré comme private, nous avons créé tout un jeu de setters et getters pour lire ou modifier la valeur de ses attributs.
@@ -35,17 +35,17 @@ Finalement, \textit{Tableau\_Objets} est simplement un tableau non-contraint d'�
 
 \section {Parseur}
 Le fonctionnement du parseur est assez simple, \textbf{Lecture\_En\_Tete} se contente de lire les deux premiers nombres de type Natural qu'il trouve dans le fichier d'entrée. \\
-La procédure \textbf{Lecture} quand a elle saute les deux premières lignes du fichier et pour tous les objets du fichier, lit la valeur de l'indice, la largeur, et la hauteur, et les stocke dans les attributs de l'Objet correspondant dans le tableau 
+La procédure \textbf{Lecture} quand à elle saute les deux premières lignes du fichier et pour tous les objets du fichier, lit la valeur de l'indice, la largeur, et la hauteur, et les stocke dans les attributs de l'Objet correspondant dans le tableau 
 d'\textit{Objet}.
-\paragraph{} Dans les deux cas, nous avons fait attention a bien gérer toutes les exceptions qu'il est possible de rencontrer lors de la lecture du fichier a parser. Il reste cependant de la responsabilité de l'utilisateur que de fournir un fichier d'entrée valide et correctement formaté et indexé.
+\paragraph{} Dans les deux cas, nous avons fait attention à bien gérer toutes les exceptions qu'il est possible de rencontrer lors de la lecture du fichier a parser. Il reste cependant de la responsabilité de l'utilisateur que de fournir un fichier d'entrée valide et correctement formaté et indexé.
 \newpage
 
 \section {Mise en Oeuvre du packing}
 Notre implémentation de l'algorithme \textbf{Next\_Fit\_Decreasing\_Height} est la suivante :
 \begin{itemize}
-  \item \underline{Tri décroissant du tableau:} Nous avons choisi d'utiliser une procédure générique, \textit{Ada.Containers.Generic\_Array\_Sort}\footnote{http://rosettacode.org/wiki/Sort\_an\_array\_of\_composite\_structures} qui une fois instanciée permet le tri d'un tableau par ordre croissant. Afin d'obtenir un tri décroissant, nous avons remplace le signe '<' de la fonction de comparaison \textbf{"<"} par '>'.\\
-\noindent Nous avons choisi cette solution car elle offre un tri extremement rapide et concis.
-  \item \underline{Positionnement des objets:} Chaque \textit{Objet} est donc doté d'un attribut \emph{Position : Point(X,Y);} qui va être assigné par l'algorithme de packing. \textit{H\_Max} est la hauteur du premier élement du niveau, \textit{H\_Cour} et \textit{L\_Cour} sont la hauteur et largeur courante permettant d'établir la position d'un objet. \\
+  \item \underline{Tri décroissant du tableau:} Nous avons choisi d'utiliser une procédure générique, \textit{Ada.Containers.Generic\_Array\_Sort}\footnote{http://rosettacode.org/wiki/Sort\_an\_array\_of\_composite\_structures} qui une fois instanciée permet le tri d'un tableau par ordre croissant. Afin d'obtenir un tri décroissant, nous avons remplacé le signe '<' de la fonction de comparaison \textbf{"<"} par '>'.\\
+\noindent Nous avons choisi cette solution car elle offre un tri extrêmement rapide et concis.
+  \item \underline{Positionnement des objets:} Chaque \textit{Objet} est donc doté d'un attribut \emph{Position : Point(X,Y);} qui va être assigné par l'algorithme de packing. \textit{H\_Max} est la hauteur du premier élément du niveau, \textit{H\_Cour} et \textit{L\_Cour} sont la hauteur et largeur courante permettant d'établir la position d'un objet. \\
 A la fin de l'algorithme, on obtient la hauteur totale du ruban qui est égale à la somme de la hauteur de tous les premiers élements de niveau.
 \end{itemize}
 
