@@ -16,6 +16,7 @@
 
 \maketitle
 
+<<<<<<< HEAD
 \section {ModÈlisation des objets}
 Le type \textit{Objet} reprÈsente un rectangle ‡ placer sur la bande. 
 Afin de le modÈliser, nous avons crÈe un \textit{record type} contenant 
@@ -37,11 +38,36 @@ Finalement, \textit{Tableau\_Objets} est un tableau non-contraint d'ÈlÈments de 
 Le fonctionnement du \textit{Parseur} est simple, \textbf{Lecture\_En\_Tete} se contente de lire les deux premiers nombres de type \textit{Natural} qu'il trouve dans le fichier d'entrÈ. \\
 La procedure \textbf{Lecture} quand ‡ elle saute les deux premieres lignes du fichier, puis pour tous les objets du fichier, lit sa valeur d'indice, sa largeur, et sa hauteur, et les stocke dans les attributs de l'\textit{Objet} correspondant ‡ l'intÈrieur du tableau d'\textit{Objets}.
 \paragraph{} Dans les deux cas, nous avons fait attention ‡ bien gÈrer toutes les exceptions qu'il est possible de rencontrer lors de la lecture du fichier ‡ parser. Il reste cependant de la responsabilitÈ de l'utilisateur que de fournir un fichier d'entree valide, correctement formatÈ et indexÈ.
+=======
+\section {Mod√©lisation des objets}
+Le type \textit{Objet} repr√©sente un rectangle √† placer sur la bande. 
+Afin de le mod√©liser, nous avons cr√©√© un record type contenant 
+les attributs suivants:
+\begin{itemize}
+  \item Indice : Repr√©sente l'indice de l'objet comme pr√©sent dans le fichier 
+    pars√©.
+  \item Largeur : Largeur du rectangle
+  \item Hauteur : Hauteur du rectangle
+  \item Position : De type \textit{Point}, aussi un type record comprenant une 
+    coordonn√©e X et une Y. 
+    Repr√©sente la position du coin sup√©rieur gauche du rectangle dans le graph SVG.
+\end{itemize}
+
+Comme le type \textit{Objet} est declar√© comme private, nous avons cr√©√© tout un jeu de setters et getters pour lire ou modifier la valeur de ses attributs.
+Finalement, \textit{Tableau\_Objets} est simplement un tableau non-contraint d'√©l√©ments de type Objet.
+
+\section {Parseur}
+Le fonctionnement du parseur est assez simple, \textbf{Lecture\_En\_Tete} se contente de lire les deux premiers nombres de type Natural qu'il trouve dans le fichier d'entr√©e. \\
+La proc√©dure \textbf{Lecture} quand √† elle saute les deux premi√®res lignes du fichier et pour tous les objets du fichier, lit la valeur de l'indice, la largeur, et la hauteur, et les stocke dans les attributs de l'Objet correspondant dans le tableau 
+d'\textit{Objet}.
+\paragraph{} Dans les deux cas, nous avons fait attention √† bien g√©rer toutes les exceptions qu'il est possible de rencontrer lors de la lecture du fichier a parser. Il reste cependant de la responsabilit√© de l'utilisateur que de fournir un fichier d'entr√©e valide et correctement format√© et index√©.
+>>>>>>> FETCH_HEAD
 \newpage
 
 \section {Mise en Oeuvre du packing}
-Notre implementation de l'algorithme \textbf{Next\_Fit\_Decreasing\_Height} est la suivante :
+Notre impl√©mentation de l'algorithme \textbf{Next\_Fit\_Decreasing\_Height} est la suivante :
 \begin{itemize}
+<<<<<<< HEAD
   \item \underline{Tri decroissant du tableau:} Nous avons choisi d'utiliser une procedure gÈnÈrique, \textit{Ada.Containers.Generic\_Array\_Sort}\footnote{http://rosettacode.org/wiki/Sort\_an\_array\_of\_composite\_structures} qui une fois instanciÈe permet le tri d'un tableau par ordre croissant. Afin d'obtenir un tri dÈcroissant, nous avons remplace le signe '<' de la fonction de comparaison \textbf{"<"} par son opposÈ, '>'.\\
 \noindent Nous avons choisi cette solution car elle offre un tri rapide et concis.
   \item \underline{Positionnement des objets:} Chaque \textit{Objet} est donc dotÈ d'un attribut \emph{Position : Point(X,Y);} qui va lui Ítre assignÈ par l'algorithme de \textit{Packing}. \textit{H\_Max} est la hauteur du premier ÈlÈment du niveau, \textit{H\_Cour} et \textit{L\_Cour} sont la hauteur et largeur courante permettant d'Ètablir la position d'un objet dans l'image. \\
@@ -50,6 +76,16 @@ A la fin de l'algorithme, on obtient la hauteur totale du ruban, qui est Ègale a
 
 \section {Sauvegarde SVG}
 Finalement, la procedure de sauvegarde dans le fichier SVG va ouvrir ou crÈer le fichier dont le nom est donnÈ en argument si celui-ci n'existe pas, puis fixer la taille de l'image SVG. Ensuite, pour tous les \textit{Objets} du tableau, il va y Ècrire le code de dessin d'un rectangle dotÈ des attributs suivants:
+=======
+  \item \underline{Tri d√©croissant du tableau:} Nous avons choisi d'utiliser une proc√©dure g√©n√©rique, \textit{Ada.Containers.Generic\_Array\_Sort}\footnote{http://rosettacode.org/wiki/Sort\_an\_array\_of\_composite\_structures} qui une fois instanci√©e permet le tri d'un tableau par ordre croissant. Afin d'obtenir un tri d√©croissant, nous avons remplac√© le signe '<' de la fonction de comparaison \textbf{"<"} par '>'.\\
+\noindent Nous avons choisi cette solution car elle offre un tri extr√™mement rapide et concis.
+  \item \underline{Positionnement des objets:} Chaque \textit{Objet} est donc dot√© d'un attribut \emph{Position : Point(X,Y);} qui va √™tre assign√© par l'algorithme de packing. \textit{H\_Max} est la hauteur du premier √©l√©ment du niveau, \textit{H\_Cour} et \textit{L\_Cour} sont la hauteur et largeur courante permettant d'√©tablir la position d'un objet. \\
+A la fin de l'algorithme, on obtient la hauteur totale du ruban qui est √©gale √† la somme de la hauteur de tous les premiers √©lements de niveau.
+\end{itemize}
+
+\section {Sauvegarde SVG}
+Finalement, la proc√©dure de sauvegarde dans le fichier SVG va cr√©er le fichier dont le nom est donn√© en argument si il n'existe pas, puis fixer la taille de l'image SVG. Puis, pour tous les \textit{Objets} du tableau, il va y √©crire le code d'un rectangle avec les attributs suivants:
+>>>>>>> FETCH_HEAD
 
 \begin{framed}
 \small \noindent
@@ -59,6 +95,10 @@ width="\textcolor{red}{Objet.Largeur}" height="\textcolor{red}{Objet.Hauteur}"
         stroke-width:0;stroke:rgb(0,0,0)"/>
 \end{framed}
 
+<<<<<<< HEAD
 Les rectangles sont aussi colorÈs de faÁon cyclique afin qu'il n'y ai jamais deux rectangles cÙte ‡ cÙte remplis de la mÍme couleur.
+=======
+Les rectangles sont aussi color√©s de fa√ßon cyclique afin qu'il n'y ai jamais deux rectangles c√¥te √† c√¥te avec la m√™me couleur.
+>>>>>>> FETCH_HEAD
 
 \end{document}
