@@ -1,0 +1,65 @@
+\documentclass{article}
+
+\usepackage[latin1]{inputenc} % un package
+\usepackage[T1]{fontenc}      % un second package
+\usepackage[francais]{babel}  % un troisième package
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[usenames, dvipsnames]{color}
+\usepackage{framed}
+
+\title{Rapport de Projet Algo -- Strip Packing}
+\author{\textsc{Benjamin Lebit} - \textsc{Pierre Thalamy}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section {Modelisation des objets}
+Le type \textit{Objet} represente un rectangle a placer sur la bande. 
+Afin de le modeliser, nous avons cree un record type contenant 
+les attributs suivants:
+\begin{itemize}
+  \item Indice : Represente l'indice de l'objet comme present dans le fichier 
+    parse.
+  \item Largeur : Largeur du rectangle
+  \item Hauteur : Hauteur du rectangle
+  \item Position : De type \textit{Point}, aussi un type record comprenant une 
+    coordonne X et une Y. 
+    Represente la position du coin superieur gauche du rectangle dans le graph SVG.
+\end{itemize}
+
+Comme le type \textit{Objet} est declare comme private, nous avons cree tout un jeu de setters et getters pour lire Oou modifier la valeur de ses attributs.
+Finalement, \textit{Tableau\_Objets} est simplement un tableau non-contraint d'elements de type Objet.
+
+\section {Parseur}
+Le fonctionnement du parseur est assez simple, \textbf{Lecture\_En\_Tete} se contente de lire les deux premiers nombres de type Natural qu'il trouve dans le fichier d'entree. \\
+La procedure \textbf{Lecture} quand a elle saute les deux premieres lignes du fichier et pour tous les objets du fichier, lit la valeur de l'indice, la largeur, et la hauteur, et les stocke dans les attributs de l'Objet correspondant dans le tableau 
+d'\textit{Objet}.
+\paragraph{} Dans les deux cas, nous avons fait attention a bien gerer toutes les exceptions qu'il est possible de rencontrer lors de la lecture du fichier a parser. Il reste cependant de la responsabilite de l'utilisateur que de fournir un fichier d'entree valide et correctement formate et indexe.
+\newpage
+
+\section {Mise en Oeuvre du packing}
+Notre implementation de l'algorithme \textbf{Next\_Fit\_Decreasing\_Height} est la suivante :
+\begin{itemize}
+  \item \underline{Tri decroissant du tableau:} Nous avons choisi d'utiliser une procedure generique, \textit{Ada.Containers.Generic\_Array\_Sort}\footnote{http://rosettacode.org/wiki/Sort\_an\_array\_of\_composite\_structures} qui une fois instanciee permet le tri d'un tableau par ordre croissant. Afin d'obtenir un tri decroissant, nous avons remplace le signe '<' de la fonction de comparaison \textbf{"<"} par '>'.\\
+\noindent Nous avons choisi cette solution car elle offre un tri extremement rapide et concis.
+  \item \underline{Positionnement des objets:} Chaque \textit{Objet} est donc dote d'un attribut \emph{Position : Point(X,Y);} qui va etre assigne par l'algorithme de packing. \textit{H\_Max} est la hauteur du premier element du niveau, \textit{H\_Cour} et \textit{L\_Cour} sont la hauteur et largeur courante permettant d'etablir la position d'un objet. \\
+A la fin de l'algorithme, on obtient la hauteur totale du ruban qui est egale a la somme de la hauteur de tous les premiers elements de niveau.
+\end{itemize}
+
+\section {Sauvegarde SVG}
+Finalement, la procedure de sauvegarde dans le fichier SVG va creer le fichier dont le nom est donne en argument si il n'existe pas, puis fixer la taille de l'image SVG. Puis, pour tous les \textit{Objets} du tableau, il va y ecrire le code d'un rectangle avec les attributs suivants:
+
+\begin{framed}
+\small \noindent
+<rect x="\textcolor{red}{Objet.Position.X}" y="\textcolor{red}{Objet.Position.X}" \\
+width="\textcolor{red}{Objet.Largeur}" height="\textcolor{red}{Objet.Hauteur}" 
+        style="\textcolor{red}{rgb(Vr,Vg,Vb)};\\
+        stroke-width:0;stroke:rgb(0,0,0)"/>
+\end{framed}
+
+Les rectangles sont aussi colores de facon cyclique afin qu'il n'y ai jamais deux rectangles cotes a cotes avec la meme couleur.
+
+\end{document}

@@ -9,3 +9,7 @@ strip/strip
 *.log
 
 *.pdf
+
+strip/Rapport/#rapport.tex#
+
+strip/Rapport/.#rapport.tex
