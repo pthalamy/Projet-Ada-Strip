@@ -55,7 +55,7 @@ private
       Indice : Natural;
       Largeur : Natural;
       Hauteur : Natural;
-      Position : Point; -- Coin Superieur-gauche du rectangle
+      Position : Point; -- Coin Supérieur-gauche du rectangle
    end record;
 
 end Objet_Packing;
