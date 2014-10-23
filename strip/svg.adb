@@ -12,7 +12,7 @@ package body Svg is
    function Code_Couleur (C : Couleur) return String is
    begin
       case C is
-	 -- Couleurs utilisees pour les objets
+	 -- Couleurs utilisées pour les objets
          when Violet  => return "rgb(255,0,255)";
          when Indigo  => return "rgb(111,0,255)";
          when Bleu  => return "rgb(0,0,255)";
@@ -87,8 +87,8 @@ package body Svg is
 			Get_Hauteur (Objets(I)),
 			C);
 	 
-	 -- Donne une couleur a chaque rectangle parmi celle existante s
-	 -- de facon cyclique. Noir et Blanc non inclus.
+	 -- Donne une couleur a chaque rectangle parmi celle existantes
+	 -- de façon cyclique. Noir et Blanc non inclus.
 	 Indice_Couleur := (Indice_Couleur + 1) 
 	   mod (Couleur'Pos(Couleur'Last)-1);
 	 C := Couleur'Val (Indice_Couleur);
